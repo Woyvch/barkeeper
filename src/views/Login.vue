@@ -44,11 +44,11 @@ export default {
   components: {
     //
   },
-  /*created() {
-    UserService.getUsers().then((response) => {
+  created() {
+    /*UserService.getUsers().then((response) => {
       console.log(response.data);
-    });
-  },*/
+    });*/
+  },
   data() {
     return {
       valid: true,
@@ -68,6 +68,7 @@ export default {
     },
     register() {
       console.log('go to page register');
+      console.log(process.env.DATABASE_URL);
     },
   },
 };

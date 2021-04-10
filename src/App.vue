@@ -1,21 +1,13 @@
 <template>
   <v-app>
-    <v-navigation-drawer app>
-      <!-- Side navigation -->
-    </v-navigation-drawer>
+    <v-system-bar></v-system-bar>
+    <!--<v-navigation-drawer app>
+      Side navigation
+    </v-navigation-drawer>-->
 
     <v-app-bar app color="primary">
       <!-- Top menu bar -->
-      <v-toolbar-title>Project</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        v-for="link in links"
-        :key="`${link.label}-header-link`"
-        text
-        rounded
-        :to="link.url"
-        >{{ link.label }}
-      </v-btn>
+      <v-toolbar-title>Barkeeper</v-toolbar-title>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
@@ -27,14 +19,19 @@
       </v-container>
     </v-main>
 
-    <v-footer color="primary" padless>
-      <!-- Bottom footer -->
-      <v-row justify="center" no-gutters>
-        <v-col class="py-4 text-center" cols="12">
-          {{ new Date().getFullYear() }} — <strong>Project</strong>
-        </v-col>
-      </v-row>
-    </v-footer>
+    <v-bottom-navigation app color="primary" horizontal grow>
+      <v-btn
+          v-for="link in links"
+          :key="link.label"
+          rounded
+          text
+          :to="link.url"
+        >
+          <span>{{ link.label }}</span>
+          <v-icon>{{ link.icon }}</v-icon>
+        </v-btn>
+    </v-bottom-navigation>
+
   </v-app>
 </template>
 
@@ -44,23 +41,17 @@ export default {
   components: {
     //
   },
-  data: () => ({
-    drawer: false,
-    group: null,
-    links: [
-      {
-        label: 'Home',
-        url: '/',
-      },
-      {
-        label: 'Login',
-        url: '/login',
-      },
-      {
-        label: 'About',
-        url: '/about',
-      },
-    ],
-  }),
+  data() {
+    return {
+      drawer: false,
+      group: null,
+      links: [
+        { label: 'Home', url: '/barkeeper', icon: 'mdi-home' },
+        //{ label: 'Login', url: '/login' },
+        { label: 'Cart', url: '/cart', icon: 'mdi-cart'  },
+        { label: 'About', url: '/about', icon: 'mdi-information' },
+      ],
+    };
+  },
 };
 </script>

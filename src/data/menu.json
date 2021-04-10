@@ -1,0 +1,99 @@
+{
+  "catgories": [
+    {
+      "id": 1,
+      "name": "Waters"
+    },
+    {
+      "id": 2,
+      "name": "Frisdranken"
+    },
+    {
+      "id": 3,
+      "name": "Sportdranken"
+    },
+    {
+      "id": 4,
+      "name": "Warme dranken"
+    },
+    {
+      "id": 5,
+      "name": "Bieren van het vat"
+    },
+    {
+      "id": 6,
+      "name": "Alcoholvrij"
+    },
+    {
+      "id": 7,
+      "name": "Bieren van de fles"
+    },
+    {
+      "id": 8,
+      "name": "Wijnen"
+    },
+    {
+      "id": 9,
+      "name": "Aperitieven"
+    },
+    {
+      "id": 10,
+      "name": "Longdrinks"
+    },
+    {
+      "id": 11,
+      "name": "Sterke dranken"
+    }
+  ],
+  "drinks": [
+    {
+      "id": 1,
+      "category": 1,
+      "name": "Spa bruisend 20cl",
+      "price": "2,00",
+      "description": ""
+    },
+    {
+      "id": 2,
+      "category": 1,
+      "name": "Spa niet bruisend 20cl",
+      "price": "2,00",
+      "description": ""
+    },
+    {
+      "id": 3,
+      "category": 1,
+      "name": "Spa bruisend 50cl",
+      "price": "3,20",
+      "description": ""
+    },
+    {
+      "id": 4,
+      "category": 1,
+      "name": "Spa niet bruisend 50cl",
+      "price": "3,20",
+      "description": ""
+    },
+    {
+      "id": 5,
+      "category": 1,
+      "name": "Bru",
+      "price": "2,60",
+      "description": ""
+    },
+    {
+      "id": 6,
+      "category": 1,
+      "name": "Grote fles water bruisend",
+      "price": "6,00",
+      "description": ""
+    },
+    {
+      "id": 7,
+      "category": 1,
+      "name": "Grote fles water niet bruisend",
+      "price": "6,00",
+      "description": ""
+    }
+  ]
+}
