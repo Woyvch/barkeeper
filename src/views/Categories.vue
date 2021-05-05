@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'Categories',
+  name: 'CategoriesView',
   props: {
     categories: {
       type: Array,

@@ -1,50 +1,44 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+//Modules
+import * as category from '@/store/modules/category.js';
+import * as drink from '@/store/modules/drink.js';
+import cart from '@/store/modules/cart.js';
+import order from '@/store/modules/order.js';
+import client from '@/store/modules/client.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cart: [],
-    orders: [],
+    table: '', // het nummer van de tafel
   },
+  // Getters
   getters: {
-    cartItems(state) {
-      return state.cart.length;
-    },
-    cartValue(state) {
-      let result = 0;
-      for (let index = 0; index < state.cart.length; index++) {
-        result += state.cart[index].price;
-      }
-      return result;
+    tableNr(state) {
+      return state.table;
     },
   },
+  // Mutations
   mutations: {
-    ADD_ITEM(state, item) {
-      state.cart.push(item);
-    },
-
-    REMOVE_ITEM(state, index) {
-      state.cart.splice(index, 1);
-    },
-    ADD_CART_ITEM(state, order) {
-      state.orders.push(order);
-      console.log(order);
+    SET_TABLE(state, table) {
+      state.table = table;
+      sessionStorage.setItem('table', table);
     },
   },
+  // Actions
   actions: {
-    addItem(context, item) {
-      context.commit('ADD_ITEM', item);
-    },
-
-    removeItem(context, index) {
-      context.commit('REMOVE_ITEM', index);
-    },
-    checkout(context) {
-      context.commit('ADD_CART_ITEM', this.state.cart);
-      // Wanneer geslaagd de cart leeg maken
+    setTable({ commit }, table) {
+      commit('SET_TABLE', table);
     },
   },
-  modules: {},
+  // Modules
+  modules: {
+    category,
+    drink,
+    cart,
+    order,
+    client,
+  },
+
 });

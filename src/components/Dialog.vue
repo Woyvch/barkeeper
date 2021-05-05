@@ -86,6 +86,8 @@ import { required, maxLength, minLength, email } from 'vuelidate/lib/validators'
 
 export default {
   name: 'dialogComponent',
+
+  // Formvalidation
   mixins: [validationMixin],
   validations: {
     firstName: { required },
@@ -98,16 +100,20 @@ export default {
       },
     },
   },
+
   data() {
     return {
       //visibility: false,
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: '',
+      firstName: 'Wouter',
+      lastName: 'Scherpereel',
+      phone: '0477691085',
+      email: 'test@email.com',
       checkbox: true,
+      test: 'test',
+      table: sessionStorage.getItem('table'),
     };
   },
+
   props: {
     dialogVisibility: {
       type: Boolean,
@@ -118,10 +124,11 @@ export default {
       default: null,
     },
     order: {
-      type: Number,
+      type: Array,
       default: null,
     }
   },
+
   computed: {
     visibility() {
       return this.dialogVisibility;
@@ -165,11 +172,13 @@ export default {
         name: `${this.firstName} ${this.lastName}`,
         phone: this.phone,
         email: this.email,
+        table: this.table,
       };
       // De persoonsgegevens terug sturen
       return client;
     },
   },
+  
   methods: {
     close() {
       this.$v.$reset();
@@ -178,13 +187,18 @@ export default {
     save() {
       this.$v.$touch();
       if(!this.$v.$invalid) {
+          let finalOrder = {
+            order: this.order,
+            table: this.table,
+          };
         // Wanneer alle gegevens correct zijn ingevuld de bestelling plaatsen
-        console.log(this.client);
         this.$store
-          .dispatch('checkout')
+          .dispatch('order/addOrder', finalOrder) // Gegevens van het order door sturen
           .then(() => {
+            // Persoonsgegevens door sturen
+            this.$store.dispatch('client/addClient', this.client)
             // Alle velden terug leeg maken
-            this.resetDialogForm();
+            //this.resetDialogForm();
             // Dialoogvenster sluiten
             this.$emit('order-completed', true);
             this.$emit('show-dialog', false);

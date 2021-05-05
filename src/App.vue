@@ -20,38 +20,57 @@
     </v-main>
 
     <v-bottom-navigation app color="primary" horizontal grow>
-      <v-btn
-          v-for="link in links"
-          :key="link.label"
-          rounded
-          text
-          :to="link.url"
-        >
-          <span>{{ link.label }}</span>
-          <v-icon>{{ link.icon }}</v-icon>
-        </v-btn>
+      <v-btn v-for="link in links" :key="link.label" rounded text :to="link.url">
+        <v-icon>{{ link.icon }}</v-icon>
+        <span>{{ link.label }}</span>
+        <v-badge :content="cartItems" :value="link.visible" inline></v-badge>
+      </v-btn>
     </v-bottom-navigation>
 
   </v-app>
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'App',
+  computed: {
+    ...mapState(['category', 'drinks', 'cart']),
+    ...mapGetters({
+      cartItems: 'cart/cartItems',
+      //tableNr: 'tableNr',
+    }),
+  },
+  beforeCreate() {
+    sessionStorage.clear();
+    console.log('Session cleared');
+  },
+
+  created() {
+    //sessionStorage.clear();
+    this.$store.dispatch('category/getCategories');
+    this.$store.dispatch('drink/getDrinks');
+    this.initialize();
+  },
   components: {
     //
   },
   data() {
     return {
-      drawer: false,
-      group: null,
+      //tableNr: 0,
       links: [
-        { label: 'Home', url: '/barkeeper', icon: 'mdi-home' },
-        //{ label: 'Login', url: '/login' },
-        { label: 'Cart', url: '/cart', icon: 'mdi-cart'  },
-        { label: 'About', url: '/about', icon: 'mdi-information' },
+        { label: 'Start', url: `/`, icon: 'mdi-home-outline', visible: false }, //barkeeper/${this.tableNr}
+        //{ label: 'Login', url: '/login', icon: 'mdi-account' },
+        { label: 'Bestelling', url: '/cart2', icon: 'mdi-cart-outline', visible: true },
+        { label: 'Instellingen', url: '/settings', icon: 'mdi-cog-outline', visible: false },
       ],
     };
   },
+  methods: {
+    initialize() {
+      //
+    },
+  }
 };
 </script>
