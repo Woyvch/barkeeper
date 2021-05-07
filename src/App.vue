@@ -64,7 +64,7 @@ export default {
       links: [
         { label: 'Start', url: `/`, icon: 'mdi-home-outline', visible: false },
         //{ label: 'Login', url: '/login', icon: 'mdi-account' },
-        { label: 'Bestelling', url: '/cart2', icon: 'mdi-cart-outline', visible: true },
+        { label: 'Bestelling', url: '/cart', icon: 'mdi-cart-outline', visible: true },
         //{ label: 'Instellingen', url: '/settings', icon: 'mdi-cog-outline', visible: false },
       ],
     };
