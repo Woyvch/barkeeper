@@ -35,10 +35,6 @@ const mutations = {
     });
   },
 
-  REMOVE_ITEM_FROM_CART(state, index) {
-    state.items.splice(index, 1);
-  },
-
   INCREMENT_ITEM_QUANTITY(state, index) {
     //console.log(index);
     const cartItem = state.items[index];
@@ -52,6 +48,14 @@ const mutations = {
     const cartItem = state.items[index];
     cartItem.quantity--;
     cartItem.value = (cartItem.value * 10 - cartItem.item.price * 10) / 10;
+  },
+
+  REMOVE_ITEM_FROM_CART(state, index) {
+    state.items.splice(index, 1);
+  },
+
+  CLEAR_CART_ITEMS(state) {
+    state.items = [];
   },
 };
 
@@ -86,6 +90,10 @@ const actions = {
 
   removeItem(context, index) {
     context.commit('REMOVE_ITEM_FROM_CART', index);
+  },
+
+  clearCartItems({ commit }) {
+    commit('CLEAR_CART_ITEMS');
   },
 };
 

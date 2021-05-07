@@ -169,13 +169,26 @@ export default {
       this.orderFinished = value;
       console.log(this.orderFinished);
       // Melding geven wanneer de bestelling voltooid is
-      this.showSnackbar();
+      this.showSnackbar('De bestelling werd met succes voltooid.');
       // winkelkar leeg maken
+      this.$store
+        .dispatch('cart/clearCartItems')
+        .then(() => {
+          this.items = [];
+          sessionStorage.clear();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // sessionstorage wissen en terug gaan naar het begin scherm
+      // enkele seconden wachten...
+      //sessionStorage.clear();
+      //this.$router.push('/');
     },
 
-    showSnackbar() {
+    showSnackbar(content) {
       this.snackbar = true;
-      this.text = 'De bestelling werd met succes voltooid.';
+      this.text = content;
     }
   },
 };

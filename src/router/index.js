@@ -6,17 +6,19 @@ import Login from '@/views/Login.vue';
 import Barkeeper from '@/views/Barkeeper.vue';
 import Categories from '@/views/Categories.vue';
 import Drinks from '@/views/Drinks.vue';
-import Cart2 from '@/views/Cart2.vue';
+import Cart from '@/views/Cart.vue';
 import Settings from '@/views/Settings.vue';
 import EditDrinks from '@/views/EditDrinks.vue';
 import EditCategories from '@/views/EditCategories.vue';
 import QRcode from '@/views/QRcode.vue';
 import Orders from '@/views/Orders.vue';
 
+import { authGuard } from '@/auth/authGuard';
+
 Vue.use(VueRouter);
 
 const routes = [
-  { 
+  {
     path: '/',
     name: 'Home',
     component: Home,
@@ -24,7 +26,7 @@ const routes = [
     beforeEnter(to, from, next) {
       const tableNr = sessionStorage.getItem('table');
       // Als de sessie een tafelnummer bevat
-      if(tableNr > 0) next({ path: `/barkeeper/${tableNr}` });
+      if (tableNr > 0) next({ path: `/barkeeper/${tableNr}` });
       // anders ga door naar de startpagina
       else next();
     },
@@ -48,10 +50,11 @@ const routes = [
     component: Drinks,
     props: true, // Pass route.params to props
   },
-  { path: '/cart2', name: 'Cart2', component: Cart2 },
+  { path: '/cart', name: 'Cart', component: Cart },
   {
     path: '/settings',
     component: Settings,
+    beforeEnter: authGuard,
     children: [
       {
         path: 'drinks',
@@ -75,7 +78,7 @@ const routes = [
       },
     ],
   },
-  { path: '*', redirect: '/' }
+  { path: '*', redirect: '/' },
 ];
 
 const router = new VueRouter({

@@ -25,6 +25,10 @@
         <span>{{ link.label }}</span>
         <v-badge :content="cartItems" :value="link.visible" inline></v-badge>
       </v-btn>
+      <v-btn v-if="$auth.isAuthenticated" to="/settings">
+        <v-icon>mdi-cog-outline</v-icon>
+        <span>Instellingen</span>
+      </v-btn>
     </v-bottom-navigation>
 
   </v-app>
@@ -39,7 +43,6 @@ export default {
     ...mapState(['category', 'drinks', 'cart']),
     ...mapGetters({
       cartItems: 'cart/cartItems',
-      //tableNr: 'tableNr',
     }),
   },
   beforeCreate() {
@@ -58,12 +61,11 @@ export default {
   },
   data() {
     return {
-      //tableNr: 0,
       links: [
-        { label: 'Start', url: `/`, icon: 'mdi-home-outline', visible: false }, //barkeeper/${this.tableNr}
+        { label: 'Start', url: `/`, icon: 'mdi-home-outline', visible: false },
         //{ label: 'Login', url: '/login', icon: 'mdi-account' },
         { label: 'Bestelling', url: '/cart2', icon: 'mdi-cart-outline', visible: true },
-        { label: 'Instellingen', url: '/settings', icon: 'mdi-cog-outline', visible: false },
+        //{ label: 'Instellingen', url: '/settings', icon: 'mdi-cog-outline', visible: false },
       ],
     };
   },

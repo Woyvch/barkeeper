@@ -8,7 +8,7 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="6" >
+              <v-col cols="6">
                 <v-text-field
                   v-model="firstName"
                   :error-messages="firstNameErrors"
@@ -71,7 +71,7 @@
           <v-btn outlined rounded text color="error" @click="close">
             Sluiten
           </v-btn>
-          <v-btn outlined rounded text color="success" @click="save(order)">
+          <v-btn outlined rounded text color="success" :disabled="$v.$invalid" @click="save(order)">
             Afrekenen
           </v-btn>
         </v-card-actions>
@@ -82,7 +82,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate';
-import { required, maxLength, minLength, email } from 'vuelidate/lib/validators';
+import { required, maxLength, minLength, numeric, email } from 'vuelidate/lib/validators';
 
 export default {
   name: 'dialogComponent',
@@ -92,7 +92,7 @@ export default {
   validations: {
     firstName: { required },
     lastName: { required },
-    phone: { required, minLength: minLength(10), maxLength: maxLength(13) },
+    phone: { required, minLength: minLength(10), maxLength: maxLength(13), numeric },
     email: { required, email },
     checkbox: {
       checked(value) {
@@ -104,12 +104,12 @@ export default {
   data() {
     return {
       //visibility: false,
-      firstName: 'Wouter',
-      lastName: 'Scherpereel',
-      phone: '0477691085',
-      email: 'test@email.com',
-      checkbox: true,
-      test: 'test',
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      checkbox: false,
+      test: '',
       table: sessionStorage.getItem('table'),
     };
   },
@@ -126,7 +126,7 @@ export default {
     order: {
       type: Array,
       default: null,
-    }
+    },
   },
 
   computed: {
@@ -148,7 +148,7 @@ export default {
     phoneErrors() {
       const errors = [];
       if (!this.$v.phone.$dirty) return errors;
-      // controle enkel cijfers
+      !this.$v.phone.numeric && errors.push('gsm nummer moet uit cijfers bestaan')
       !this.$v.phone.minLength && errors.push('gsm nummer moet minimum 10 karakters lang zijn')
       !this.$v.phone.maxLength && errors.push('gsm nummer mag maximum 13 characters lang zijn')
       !this.$v.phone.required && errors.push('gsm nummer is verplicht')
@@ -178,7 +178,7 @@ export default {
       return client;
     },
   },
-  
+
   methods: {
     close() {
       this.$v.$reset();
@@ -186,26 +186,26 @@ export default {
     },
     save() {
       this.$v.$touch();
-      if(!this.$v.$invalid) {
-          let finalOrder = {
-            order: this.order,
-            table: this.table,
-          };
+      if (!this.$v.$invalid) {
+        let finalOrder = {
+          order: this.order,
+          table: this.table,
+        };
         // Wanneer alle gegevens correct zijn ingevuld de bestelling plaatsen
         this.$store
           .dispatch('order/addOrder', finalOrder) // Gegevens van het order door sturen
           .then(() => {
             // Persoonsgegevens door sturen
-            this.$store.dispatch('client/addClient', this.client)
+            this.$store.dispatch('client/addClient', this.client);
             // Alle velden terug leeg maken
-            //this.resetDialogForm();
+            this.resetDialogForm();
             // Dialoogvenster sluiten
             this.$emit('order-completed', true);
             this.$emit('show-dialog', false);
           })
           .catch((error) => {
             console.log(error);
-          })
+          });
       }
     },
     resetDialogForm() {
