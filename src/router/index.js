@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 // Views
 import Home from '@/views/Home.vue';
-import Login from '@/views/Login.vue';
 import Barkeeper from '@/views/Barkeeper.vue';
 import Categories from '@/views/Categories.vue';
 import Drinks from '@/views/Drinks.vue';
@@ -12,6 +11,7 @@ import EditDrinks from '@/views/EditDrinks.vue';
 import EditCategories from '@/views/EditCategories.vue';
 import QRcode from '@/views/QRcode.vue';
 import Orders from '@/views/Orders.vue';
+import Clients from '../views/Clients.vue';
 
 import { authGuard } from '@/auth/authGuard';
 
@@ -31,7 +31,6 @@ const routes = [
       else next();
     },
   },
-  { path: '/login', name: 'Login', component: Login },
   {
     path: '/barkeeper/:table',
     component: Barkeeper,
@@ -74,6 +73,11 @@ const routes = [
       {
         path: 'orders',
         component: Orders,
+        props: true,
+      },
+      {
+        path: 'clients',
+        component: Clients,
         props: true,
       },
     ],

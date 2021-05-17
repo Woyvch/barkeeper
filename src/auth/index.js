@@ -1,19 +1,16 @@
-/*The intention is for the following code snippet and the associated Vue plugin to be refactored into a separate dependency,
-to be installed as a dependency of your project. For now, add the code inline into your project.*/
-
 import Vue from 'vue';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
-/** Define a default action to perform after authentication */
+// Define a default action to perform after authentication
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
 let instance;
 
-/** Returns the current instance of the SDK */
+// Returns the current instance of the SDK
 export const getInstance = () => instance;
 
-/** Creates an instance of the Auth0 SDK. If one has already been created, it returns that instance */
+// Creates an instance of the Auth0 SDK. If one has already been created, it returns that instance
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
   redirectUri = window.location.origin,
@@ -34,7 +31,7 @@ export const useAuth0 = ({
       };
     },
     methods: {
-      /** Authenticates the user using a popup window */
+      // Authenticates the user using a popup window
       async loginWithPopup(options, config) {
         this.popupOpen = true;
 
@@ -54,7 +51,7 @@ export const useAuth0 = ({
         this.user = await this.auth0Client.getUser();
         this.isAuthenticated = true;
       },
-      /** Handles the callback when logging in using a redirect */
+      // Handles the callback when logging in using a redirect
       async handleRedirectCallback() {
         this.loading = true;
         try {
@@ -68,29 +65,29 @@ export const useAuth0 = ({
           this.loading = false;
         }
       },
-      /** Authenticates the user using the redirect method */
+      // Authenticates the user using the redirect method
       loginWithRedirect(o) {
         return this.auth0Client.loginWithRedirect(o);
       },
-      /** Returns all the claims present in the ID token */
+      // Returns all the claims present in the ID token
       getIdTokenClaims(o) {
         return this.auth0Client.getIdTokenClaims(o);
       },
-      /** Returns the access token. If the token is invalid or missing, a new one is retrieved */
+      // Returns the access token. If the token is invalid or missing, a new one is retrieved
       getTokenSilently(o) {
         return this.auth0Client.getTokenSilently(o);
       },
-      /** Gets the access token using a popup window */
+      // Gets the access token using a popup window
 
       getTokenWithPopup(o) {
         return this.auth0Client.getTokenWithPopup(o);
       },
-      /** Logs the user out and removes their session on the authorization server */
+      // Logs the user out and removes their session on the authorization server
       logout(o) {
         return this.auth0Client.logout(o);
       },
     },
-    /** Use this lifecycle method to instantiate the SDK client */
+    // Use this lifecycle method to instantiate the SDK client
     async created() {
       // Create a new instance of the SDK client using members of the given options object
       this.auth0Client = await createAuth0Client({

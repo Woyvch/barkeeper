@@ -2,7 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import vuetify from './plugins/vuetify';
+import vuetify from '@/plugins/vuetify'; // path to vuetify export
+import QRCodeGeneratorPlugin from '@/plugins/syncfusion';
 import Vuelidate from 'vuelidate';
 // Import the Auth0 configuration
 import { domain, clientId } from '../auth_config.json';
@@ -22,11 +23,11 @@ Vue.use(Auth0Plugin, {
   },
 });
 
-
 new Vue({
   router,
   store,
   vuetify,
+  QRCodeGeneratorPlugin,
   Vuelidate,
   render(h) {
     return h(App);

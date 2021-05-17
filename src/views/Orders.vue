@@ -53,7 +53,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'ordersView',
+  name: 'ordersPage',
   data() {
     return {
       expanded: [],
@@ -75,7 +75,7 @@ export default {
       ],
       ordersData: [],
       orderingsData: [],
-    }
+    };
   },
   created() {
     this.$store.dispatch('order/getOrders');
@@ -89,14 +89,12 @@ export default {
     initialize() {
       this.ordersData = this.order.orders;
       this.orderingsData = this.order.orderings;
-      //console.log(this.ordersData);
-      //console.log(this.orderingsData);
     },
     rij(item) {
       console.log(item);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -8,7 +8,7 @@
           :search="search"
           sort-by="category"
           class="elevation-1"
-          ><!-- v-if="drinksCount !== 0" -->
+        >
           <template v-slot:top>
             <v-toolbar flat>
               <v-toolbar-title>Drankenlijst</v-toolbar-title>
@@ -132,7 +132,6 @@ export default {
       search: '',
     };
   },
-
   computed: {
     ...mapState(['category', 'drink']),
     ...mapGetters({
@@ -142,7 +141,6 @@ export default {
       return this.editedIndex === -1 ? 'Nieuwe drank' : 'Wijzig drank';
     },
   },
-
   watch: {
     dialog(val) {
       val || this.close();
@@ -151,29 +149,21 @@ export default {
       val || this.closeDelete();
     },
   },
-
   created() {
     this.$store.dispatch('drink/getDrinks');
     this.$store.dispatch('category/getCatNames');
     this.initialize();
   },
-
   methods: {
     initialize() {
-      //this.$store.dispatch('drink/getDrinks');
-      //this.$store.dispatch('category/getCatNames');
-      //this.categories = [ 'Waters', 'Frisdranken', 'Sportdranken', 'Warme dranken', 'Bieren van het vat' ];
-      //this.categorylist = this.category.categories;
       this.catNames = this.category.catNames;
       this.drinklist = this.drink.drinks;
     },
-
     editItem(item) {
       this.editedIndex = this.drinklist.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-
     deleteItem(item) {
       this.editedIndex = this.drinklist.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -184,7 +174,6 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
-
     deleteItemConfirm() {
       this.$store
         .dispatch('drink/deleteDrink', this.editedItem)
@@ -197,7 +186,6 @@ export default {
         });
       this.closeDelete();
     },
-
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -205,7 +193,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -213,7 +200,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-    
     save() {
       if (this.editedIndex > -1) {
         // Een drank wijzigen
@@ -222,19 +208,16 @@ export default {
           .dispatch('drink/editDrink', this.editedItem)
           .then(() => {
             // execute when there is a response from the API
-            //setTimeout(this.initialize(), 2000);
           })
           .catch((error) => {
             console.log('There was a problem' + error);
           });
       } else {
         // Een nieuwe drank toevoegen
-        //this.drinklist.push(this.editedItem) geen id in de lijst!
         this.$store
           .dispatch('drink/addDrink', this.editedItem)
           .then(() => {
             // execute when there is a response from the API
-            //this.initialize();
             this.drinklist = this.drink.drinks;
           })
           .catch((error) => {

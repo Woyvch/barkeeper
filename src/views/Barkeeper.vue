@@ -18,30 +18,12 @@ export default {
   props: {
     table: { type: String, default: '0' },
   },
-
-  components: {
-    //
-  },
-
   computed: {
     ...mapState(['category']), // reference the modulename
   },
-
-  data() {
-    return {
-      //
-    };
-  },
-
   created() {
     this.$store.dispatch('category/getCategories');
     this.$store.dispatch('setTable', this.table);
-  },
-
-  methods: {
-    enter() {
-      //
-    }
   },
 };
 </script>

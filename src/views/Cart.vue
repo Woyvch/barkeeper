@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="cart">
     <v-data-table
       :headers="headers"
       :items="items"
+      mobile-breakpoint=758
       sort-by="Naam"
       class="elevation-1"
       hide-default-footer
@@ -13,7 +14,7 @@
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-divider class="mx-4" inset vertical></v-divider>
-          <v-btn text color="primary" :to="{ path: `/barkeeper/${table}` }"> <!-- het tafelnr opslaan in de sessie -->
+          <v-btn text color="primary" :to="{ path: `/barkeeper/${table}` }">
             Sluiten
           </v-btn>
         </v-toolbar>
@@ -62,13 +63,13 @@ import { mapState, mapGetters } from 'vuex';
 import DialogComponent from '../components/Dialog.vue';
 
 export default {
-  name: 'cartView2',
+  name: 'cartPage',
   data() {
     return {
       headers: [
         { text: 'Aantal',sortable: false, value: 'quantity' },
-        { text: 'Naam', sortable: false, value: 'item.name', },
-        { text: 'Prijs', sortable: false, value: 'value', },
+        { text: 'Naam', sortable: false, value: 'item.name' },
+        { text: 'Prijs (€)', sortable: false, value: 'value' },
         { text: 'Wijzigen', value: 'actions', sortable: false },
       ],
       items: [],
@@ -84,11 +85,9 @@ export default {
       table: sessionStorage.table,
     }
   },
-
   components: {
     DialogComponent,
   },
-
   computed: {
     ...mapState(['cart']),
     ...mapGetters({
@@ -96,21 +95,10 @@ export default {
       total: 'cart/cartValue',
     }),
   },
-
-  watch: {
-    //
-  },
-
   created () {
     this.items = this.cart.items;
-    //this.initialize()
   },
-
   methods: {
-    initialize () {
-      //
-    },
-
     itemIndex(item) {
       for (let index = 0; index < this.items.length; index++) {
         if(this.items[index].item.id === item.id) {
@@ -118,7 +106,6 @@ export default {
         }
       }
     },
-
     decrementItem(item) {
       let index = this.itemIndex(item.item);
       if(item.quantity > 1) {
@@ -134,7 +121,6 @@ export default {
         this.removeItem(index);
       }
     },
-
     incrementItem(item) {
       let index = this.itemIndex(item.item);
       this.$store
@@ -146,7 +132,6 @@ export default {
           console.log(err);
         });
     },
-
     removeItem(index) {
       this.$store
         .dispatch('cart/removeItem', index)
@@ -158,12 +143,10 @@ export default {
           console.log('Er was een probleem bij het verwijderen');
         });
     },
-
     showDialog(value) { 
       // value == true if Checkout is clicked
       this.dialogVisibility = value; 
     },
-
     orderCompleted(value) {
       // true wanneer order afgewerkt is
       this.orderFinished = value;
@@ -180,16 +163,11 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      // sessionstorage wissen en terug gaan naar het begin scherm
-      // enkele seconden wachten...
-      //sessionStorage.clear();
-      //this.$router.push('/');
     },
-
     showSnackbar(content) {
       this.snackbar = true;
       this.text = content;
-    }
+    },
   },
 };
 </script>

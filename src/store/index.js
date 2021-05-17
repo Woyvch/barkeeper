@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-//Modules
-import * as category from '@/store/modules/category.js';
-import * as drink from '@/store/modules/drink.js';
+// Modules
+import category from '@/store/modules/category.js';
+import drink from '@/store/modules/drink.js';
 import cart from '@/store/modules/cart.js';
 import order from '@/store/modules/order.js';
 import client from '@/store/modules/client.js';

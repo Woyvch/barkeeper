@@ -8,7 +8,7 @@
           :search="search"
           sort-by="name"
           class="elevation-1"
-          >
+        >
           <template v-slot:top>
             <v-toolbar flat>
               <v-toolbar-title>Categorieënlijst</v-toolbar-title>
@@ -26,7 +26,13 @@
               <!-- Dialoogvenster om een item toe te voegen -->
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+                  <v-btn 
+                    color="primary"
+                    dark
+                    class="mb-2"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
                     Toevoegen
                   </v-btn>
                 </template>
@@ -39,10 +45,17 @@
                     <v-container>
                       <v-row>
                         <v-col cols="2">
-                          <v-text-field v-model="editedItem.id" label="Id" :disabled="true"></v-text-field>
+                          <v-text-field
+                            v-model="editedItem.id"
+                            label="Id"
+                            :disabled="true"
+                          ></v-text-field>
                         </v-col>
                         <v-col cols="10">
-                          <v-text-field v-model="editedItem.name" label="Naam"></v-text-field>
+                          <v-text-field
+                            v-model="editedItem.name"
+                            label="Naam"
+                          ></v-text-field>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -67,8 +80,12 @@
                   </v-card-title>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                    <v-btn color="blue darken-1" text @click="closeDelete">
+                      Cancel
+                    </v-btn>
+                    <v-btn color="blue darken-1" text @click="deleteItemConfirm">
+                      OK
+                    </v-btn>
                     <v-spacer></v-spacer>
                   </v-card-actions>
                 </v-card>
@@ -76,8 +93,12 @@
             </v-toolbar>
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-            <v-icon small @click="deleteDrink(item)"> mdi-delete </v-icon>
+            <v-icon small class="mr-2" @click="editItem(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="deleteDrink(item)">
+              mdi-delete
+            </v-icon>
           </template>
         </v-data-table>
       </div>
@@ -89,7 +110,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'editCategories',
+  name: 'editCategoriesPage',
   data() {
     return {
       dialog: false,
@@ -113,14 +134,12 @@ export default {
       search: '',
     };
   },
-
   computed: {
     ...mapState(['category']),
     formTitle() {
       return this.editedIndex === -1 ? 'Nieuwe categorie' : 'Bewerk categorie';
     },
   },
-
   watch: {
     dialog(val) {
       val || this.close();
@@ -129,36 +148,30 @@ export default {
       val || this.closeDelete();
     },
   },
-
   created() {
     this.$store.dispatch('category/getCategories');
     this.$store.dispatch('category/getCatNames');
     this.initialize();
   },
-
   methods: {
     initialize() {
       this.categorieslist = this.category.categories;
       this.catNames = this.category.catNames;
     },
-
     editItem(item) {
       this.editedIndex = this.categorieslist.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-
     deleteItem(item) {
       this.editedIndex = this.categorieslist.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
-    
     deleteDrink(item) {
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
-
     deleteItemConfirm() {
       this.$store
         .dispatch('category/deleteCategory', this.editedItem)
@@ -171,7 +184,6 @@ export default {
         });
       this.closeDelete();
     },
-
     close() {
       this.dialog = false;
       this.$nextTick(() => {
@@ -179,7 +191,6 @@ export default {
         this.editedIndex = -1;
       });
     },
-
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
@@ -187,11 +198,10 @@ export default {
         this.editedIndex = -1;
       });
     },
-    
     save() {
       if (this.editedIndex > -1) {
         // Een categorie wijzigen
-        Object.assign(this.categorieslist[this.editedIndex], this.editedItem)
+        Object.assign(this.categorieslist[this.editedIndex], this.editedItem);
         this.$store
           .dispatch('category/editCategory', this.editedItem)
           .then(() => {
@@ -202,7 +212,6 @@ export default {
           });
       } else {
         // Een nieuwe categorie toevoegen
-        //this.dranken.push(this.editedItem)
         this.$store
           .dispatch('category/addCategory', this.editedItem)
           .then(() => {
@@ -213,7 +222,7 @@ export default {
             console.log('There was a problem' + error);
           });
       }
-      this.close()
+      this.close();
     },
   },
 };

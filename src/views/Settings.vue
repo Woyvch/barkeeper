@@ -34,6 +34,7 @@ export default {
     this.$store.dispatch('drink/getDrinks');
     this.$store.dispatch('order/getOrders');
     this.$store.dispatch('order/getOrderings');
+    this.$store.dispatch('client/getClients');
   },
   data() {
     return {
@@ -41,6 +42,7 @@ export default {
         { title: 'Categorieën', url: '/settings/categories', icon: 'mdi-view-agenda' },
         { title: 'Dranken', url: '/settings/drinks', icon: 'mdi-cup' },
         { title: 'Bestellingen', url: '/settings/orders', icon: 'mdi-text' },
+        { title: 'Klanten', url: '/settings/clients', icon: 'mdi-account-multiple-outline' },
         { title: 'QR-code', url: '/settings/qrcode', icon: 'mdi-qrcode' },
       ],
     }

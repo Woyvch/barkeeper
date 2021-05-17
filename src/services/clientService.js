@@ -27,4 +27,8 @@ export default {
     //console.log(data);
     return apiClient.post('/clients', data);
   },
+  // Alle klanten ophalen uit de database
+  getClients() {
+    return apiClient.get('/clients');
+  },
 };

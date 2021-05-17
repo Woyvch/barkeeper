@@ -58,37 +58,26 @@
 </template>
 
 <script>
-//import DrinksData from '../data/drinks.json';
 import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'drinksPage',
   props: {
     category: { type: Object, required: true },
-    //table: { type: Number, required: true },
   },
-
   data() {
     return {
-      //category: this.$route.params.category,
       drinksData: [],
       // Snackbar
       snackbar: false,
       text: ``,
       timeout: 5000,
-      /*item: {
-        id: 0,
-        name: '',
-        quantity: 0,
-      }*/
     };
   },
-
   created() {
     this.$store.dispatch('drink/getDrinks');
     this.initialize();
   },
-
   computed: {
     ...mapState(['drink', 'cart']),
     ...mapGetters({
@@ -112,21 +101,11 @@ export default {
       return drinks;
     },
   },
-
-  /*watch: {
-    dialog(val) {
-      val || this.close();
-    },
-  },*/
-
   methods: {
     initialize() {
       this.drinksData = this.drink.drinks;
-      //this.categoryDrinks = this.drink.categoryDrinks;
-      //console.log(this.categoryDrinks);
     },
     addToCart(item) {
-      //this.dialog = true;
       this.$store
         .dispatch('cart/addItem', item)
         .then(() => {
@@ -136,12 +115,10 @@ export default {
         .catch(() => {
           console.log('Het item kon niet toegevoegd worden aan de winkelwagen');
         });
-      //this.$store.dispatch('setTable', this.table);
     },
     save() {
-      // De bestelling plaatsen
-      this.close()
-    }
+      this.close();
+    },
   },
 };
 </script>

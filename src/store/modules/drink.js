@@ -1,13 +1,17 @@
 import DrinksService from '@/services/drinksService.js';
 
-export const namespaced = true; // module namespacing
-
-export const state = {
+const state = {
   drinks: [],
   categoryDrinks: [], //obselete?
 };
 
-export const mutations = {
+const getters = {
+  drinksCount(state) {
+    return state.drinks.length;
+  },
+};
+
+const mutations = {
   SET_DRINKS(state, drinks) {
     state.drinks = drinks;
   },
@@ -27,7 +31,7 @@ export const mutations = {
   }
 };
 
-export const actions = {
+const actions = {
   getDrinks({ commit }) {
     DrinksService.getDrinks()
       // wait for the request to finisch
@@ -42,7 +46,7 @@ export const actions = {
     DrinksService.postDrink(drink)
       .then(response => {
         commit('ADD_DRINK', response.data);
-        console.log('succes: ', response.data);
+        //console.log('succes: ', response.data);
       })
       .catch(error => {
         console.log('There was an error: ', error.response);
@@ -51,9 +55,9 @@ export const actions = {
   },
   deleteDrink({ commit }, drink) {
     DrinksService.deleteDrink(drink)
-      .then(response => {
+      .then(() => {
         commit('DELETE_DRINK', drink);
-        console.log('succes: ', response);
+        //console.log('succes: ', response);
       })
       .catch(error => {
         console.log('There was an error: ', error.response);
@@ -64,7 +68,7 @@ export const actions = {
     DrinksService.putDrink(drink)
     .then(response => {
       commit('PUT_DRINK', response.data);
-      console.log('succes: ', response.data);
+      //console.log('succes: ', response.data);
     })
     .catch(error => {
       console.log('There was an error: ', error.response);
@@ -75,7 +79,7 @@ export const actions = {
     DrinksService.getCategoryDrinks(category)
     .then(response => {
       commit('SET_CATEGORY_DRINKS', response.data);
-      console.log('succes: ', response.data);
+      //console.log('succes: ', response.data);
     })
     .catch(error => {
       console.log('There was an error: ', error.response);
@@ -84,8 +88,10 @@ export const actions = {
   }
 };
 
-export const getters = {
-  drinksCount(state) {
-    return state.drinks.length;
-  },
+export default {
+  namespaced: true, // module namespacing
+  state,
+  getters,
+  mutations,
+  actions,
 };

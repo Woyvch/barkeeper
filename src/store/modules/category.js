@@ -1,13 +1,19 @@
 import CategoriesService from '@/services/categoriesService.js';
 
-export const namespaced = true; // module namespacing
+//export const namespaced = true; // module namespacing
 
-export const state = {
+const state = {
   categories: [],
   catNames: [],
 };
 
-export const mutations = {
+const getters = {
+  getNameById: state => id => {
+    return state.categories.find(category => category.id === id);
+  }
+};
+
+const mutations = {
   SET_CATEGORIES(state, categories) {
     state.categories = categories;
   },
@@ -29,7 +35,7 @@ export const mutations = {
   },
 };
 
-export const actions = {
+const actions = {
   // Alle categorieën ophalen
   getCategories({ commit }) {
     CategoriesService.getCategories()
@@ -90,8 +96,10 @@ export const actions = {
   },
 };
 
-export const getters = {
-  getNameById: state => id => {
-    return state.categories.find(category => category.id === id);
-  }
+export default {
+  namespaced: true, // module namespacing
+  state,
+  getters,
+  mutations,
+  actions,
 };

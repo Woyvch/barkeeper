@@ -1,4 +1,4 @@
-# test-deploy-heroku
+# Barkeeper
 
 ## Project setup
 ```

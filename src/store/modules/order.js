@@ -10,9 +10,7 @@ const state = {
 };
 
 // getters
-const getters = {
-  //
-};
+const getters = {};
 
 // mutations
 const mutations = {
@@ -21,7 +19,6 @@ const mutations = {
     state.orders.push({
       order,
     });
-    //console.log(state.orders);
   },
   SET_ORDERS(state, orders) {
     state.orders = orders;
@@ -42,11 +39,10 @@ const actions = {
   // Een bestelling toevoegen
   addOrder({ commit, dispatch }, order) {
     OrderService.addOrder(order)
-    .then((response) => { // id, tablenr, datetime
+    .then((response) => {
       commit('ADD_ORDER_ITEM', order);
       commit('SET_ORDERDATA', order.order);
       commit('SET_ORDER_ID', response.data.id);
-      //console.log(response.data.id);
       // Nu ieder item toevoegen met de id van het order
       dispatch('addOrdering');
     })
@@ -57,13 +53,11 @@ const actions = {
   },
 
   addOrdering() {
-    //console.log(state.orderData[0]);
     for (let index = 0; index < state.orderData.length; index++) {
       const order = state.orderData[index];
       OrderService.addOrdering(state.orderId, order)
         .then(response => {
           console.log(response);
-          // Clientdata door sturen naar de DB?
         })
         .catch(error => {
           console.log('There was an error: ', error.response);
@@ -78,7 +72,6 @@ const actions = {
       // wait for the request to finisch
       .then(response => {
         commit('SET_ORDERS', response.data);
-        //console.log(response.data);
       })
       .catch(error => {
         console.log('There was an error: ', error.response);
@@ -90,7 +83,6 @@ const actions = {
       // wait for the request to finisch
       .then(response => {
         commit('SET_ORDERINGS', response.data);
-        //console.log(response.data);
       })
       .catch(error => {
         console.log('There was an error: ', error.response);
