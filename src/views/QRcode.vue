@@ -40,7 +40,7 @@ export default {
       displaytext: { text: 'Barkeeper' },
       mode: 'SVG',
       text: '',
-      url: 'https://quiet-badlands-49746.herokuapp.com/barkeeper/',
+      url: 'https://barkeeper.vercel.app/barkeeper/',
       value: '',
     };
   },
