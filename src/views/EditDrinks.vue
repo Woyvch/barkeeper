@@ -38,10 +38,10 @@
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="2">
+                        <!--<v-col cols="2">
                           <v-text-field v-model="editedItem.id" label="Id" :disabled="true"></v-text-field>
-                        </v-col>
-                        <v-col cols="10">
+                        </v-col>-->
+                        <v-col cols="12">
                           <v-text-field v-model="editedItem.name" label="Naam"></v-text-field>
                         </v-col>
                         <v-col cols="12" sm="6" md="6">
@@ -104,7 +104,7 @@ export default {
       dialog: false,
       dialogDelete: false,
       headers: [
-        { text: 'Id', value: 'id', sortable: false },
+        //{ text: 'Id', value: 'id', sortable: false },
         { text: 'Naam', align: 'start', value: 'name' },
         { text: 'Categorie', value: 'category' },
         { text: 'Prijs (€)', value: 'price' },

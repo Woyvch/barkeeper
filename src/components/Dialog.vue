@@ -100,7 +100,6 @@ export default {
       },
     },*/
   },
-
   data() {
     return {
       //visibility: false,
@@ -113,7 +112,6 @@ export default {
       table: sessionStorage.getItem('table'),
     };
   },
-
   props: {
     dialogVisibility: {
       type: Boolean,
@@ -128,7 +126,6 @@ export default {
       default: null,
     },
   },
-
   computed: {
     visibility() {
       return this.dialogVisibility;
@@ -178,7 +175,6 @@ export default {
       return client;
     },
   },
-
   methods: {
     close() {
       this.$v.$reset();
