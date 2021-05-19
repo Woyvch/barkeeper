@@ -11,7 +11,7 @@ import EditDrinks from '@/views/EditDrinks.vue';
 import EditCategories from '@/views/EditCategories.vue';
 import QRcode from '@/views/QRcode.vue';
 import Orders from '@/views/Orders.vue';
-import Clients from '../views/Clients.vue';
+import Clients from '@/views/Clients.vue';
 
 import { authGuard } from '@/auth/authGuard';
 
