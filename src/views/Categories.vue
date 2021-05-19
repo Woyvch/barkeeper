@@ -2,6 +2,12 @@
   <div class="categories">
     <v-card>
       <v-card-title>Categorieën</v-card-title>
+      <v-progress-linear
+        :active="loading"
+        :indeterminate="loading"
+        absolute
+        bottom
+      ></v-progress-linear>
       <template>
         <v-list rounded flat>
           <v-list-item-group color="primary">
@@ -28,6 +34,11 @@
 <script>
 export default {
   name: 'CategoriesPage',
+  data() {
+    return {
+      loading: !this.categories,
+    };
+  },
   props: {
     categories: {
       type: Array,

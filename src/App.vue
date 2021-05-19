@@ -20,7 +20,8 @@
       <v-btn
         v-for="link in links"
         :key="link.label"
-        rounded text
+        rounded
+        text
         :to="link.url"
       >
         <v-icon>{{ link.icon }}</v-icon>
@@ -32,7 +33,6 @@
         <span>Instellingen</span>
       </v-btn>
     </v-bottom-navigation>
-
   </v-app>
 </template>
 
@@ -49,7 +49,6 @@ export default {
   },
   beforeCreate() {
     sessionStorage.clear();
-    console.log('Session cleared');
   },
   created() {
     this.$store.dispatch('category/getCategories');
@@ -58,8 +57,18 @@ export default {
   data() {
     return {
       links: [
-        { label: 'Start', url: `/`, icon: 'mdi-home-outline', visible: false },
-        { label: 'Bestelling', url: '/cart', icon: 'mdi-cart-outline', visible: true },
+        {
+          label: 'Start',
+          url: `/`,
+          icon: 'mdi-home-outline',
+          visible: false,
+        },
+        {
+          label: 'Bestelling',
+          url: '/cart',
+          icon: 'mdi-cart-outline',
+          visible: true,
+        },
       ],
     };
   },

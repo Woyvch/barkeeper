@@ -52,7 +52,7 @@
                   @blur="$v.email.$touch()"
                 ></v-text-field>
               </v-col>
-              <v-col>
+              <!--<v-col>
                 <v-checkbox
                   v-model="checkbox"
                   :error-messages="checkboxErrors"
@@ -61,7 +61,7 @@
                   @change="$v.checkbox.$touch()"
                   @blur="$v.checkbox.$touch()"
                 ></v-checkbox>
-              </v-col>
+              </v-col>-->
             </v-row>
           </v-container>
           <small>*verplicht in te vullen</small>
@@ -94,11 +94,11 @@ export default {
     lastName: { required },
     phone: { required, minLength: minLength(10), maxLength: maxLength(13), numeric },
     email: { required, email },
-    checkbox: {
+    /*checkbox: {
       checked(value) {
         return value;
       },
-    },
+    },*/
   },
 
   data() {
@@ -108,7 +108,7 @@ export default {
       lastName: '',
       phone: '',
       email: '',
-      checkbox: false,
+      //checkbox: false,
       test: '',
       table: sessionStorage.getItem('table'),
     };
@@ -161,12 +161,12 @@ export default {
       !this.$v.email.required && errors.push('Gelieve je emailadres in te vullen')
       return errors;
     },
-    checkboxErrors() {
+    /*checkboxErrors() {
       const errors = [];
       if (!this.$v.checkbox.$dirty) return errors;
       !this.$v.checkbox.checked && errors.push('Je moet akkoord gaan om door te gaan')
       return errors;
-    },
+    },*/
     client() {
       let client = {
         name: `${this.firstName} ${this.lastName}`,
@@ -213,7 +213,7 @@ export default {
       this.lastName = '';
       this.phone = '';
       this.email = '';
-      this.checkbox = false;
+      //this.checkbox = false;
     },
   },
 };

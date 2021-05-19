@@ -3,7 +3,9 @@
     <v-data-table
       :headers="headers"
       :items="items"
-      mobile-breakpoint=758
+      :hide-default-header="true"
+      :dense="true"
+      :mobile-breakpoint="340"
       sort-by="Naam"
       class="elevation-1"
       hide-default-footer
@@ -69,7 +71,7 @@ export default {
       headers: [
         { text: 'Aantal',sortable: false, value: 'quantity' },
         { text: 'Naam', sortable: false, value: 'item.name' },
-        { text: 'Prijs (€)', sortable: false, value: 'value' },
+        //{ text: 'Prijs (€)', sortable: false, value: 'value' },
         { text: 'Wijzigen', value: 'actions', sortable: false },
       ],
       items: [],
@@ -150,7 +152,7 @@ export default {
     orderCompleted(value) {
       // true wanneer order afgewerkt is
       this.orderFinished = value;
-      console.log(this.orderFinished);
+      //console.log(this.orderFinished);
       // Melding geven wanneer de bestelling voltooid is
       this.showSnackbar('De bestelling werd met succes voltooid.');
       // winkelkar leeg maken

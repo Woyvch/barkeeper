@@ -26,9 +26,9 @@ const actions = {
   // Een klant toevoegen
   addClient({ commit }, client) {
     ClientService.addClient(client)
-    .then((response) => {
+    .then(() => {
       commit('ADD_CLIENT', client);
-      console.log(response);
+      //console.log(response);
     })
     .catch(error => {
       console.log('There was an error: ', error.response);

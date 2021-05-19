@@ -56,8 +56,8 @@ const actions = {
     for (let index = 0; index < state.orderData.length; index++) {
       const order = state.orderData[index];
       OrderService.addOrdering(state.orderId, order)
-        .then(response => {
-          console.log(response);
+        .then(() => {
+          //console.log(response);
         })
         .catch(error => {
           console.log('There was an error: ', error.response);
