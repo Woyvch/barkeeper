@@ -33,7 +33,7 @@
                   v-model="phone"
                   :error-messages="phoneErrors"
                   label="GSM nummer*"
-                  hint="Voorbeeld: 0477691085 of +32477691085"
+                  hint="Voorbeeld: 0123456789 of +32123456789"
                   persistent-hint
                   required
                   @input="$v.phone.$touch()"
